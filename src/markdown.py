@@ -38,10 +38,11 @@ def block_to_block_type(block):
     if block.startswith("```"):
         if len(lines) > 1 and lines[0].startswith("```") and lines[-1].endswith("```"):
             return BlockType.CODE
-    if block.startswith("> "):
+    if block.startswith(">"):
         is_quote = True
         for line in lines:
-            if not line.startswith("> "):
+            stripped = line.lstrip()
+            if not (stripped.startswith("> ") or stripped == ">"):
                 is_quote = False
                 break
         if is_quote:
@@ -129,8 +130,5 @@ def markdown_to_html_node(markdown):
                     inline_children.append(text_node_to_html_node(node))
                 li_nodes.append(ParentNode("li", inline_children))
             children.append(ParentNode("ol", li_nodes))
-
-
     return ParentNode("div", children)
-            
-        
+
