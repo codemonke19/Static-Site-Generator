@@ -3,6 +3,7 @@ import shutil
 
 def dir_to_dir_transfer(src, dst):
     if os.path.exists(dst):
+        print(f"Deleting {dst} directory...")
         shutil.rmtree(dst)
     os.mkdir(dst)
     if not os.path.exists(src):
@@ -10,6 +11,7 @@ def dir_to_dir_transfer(src, dst):
     copy_dir_contents(src, dst)
 
 def copy_dir_contents(src, dst):
+    print(f"Copying {src} files to {dst} directory...")
     src_items = os.listdir(src)
     for item in src_items:
         item_path = os.path.join(src, item)
